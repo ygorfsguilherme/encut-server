@@ -118,8 +118,10 @@ body:
 ```
 
 response:
-```
-  http://localhost:8080/google
+```json
+{
+  newUrl: "http://localhost:8080/google"
+}
 ```
 
 ## <img height="30px" src="https://img.icons8.com/external-filled-outline-icons-maxicons/85/null/external-balance-law-and-justice-filled-outline-filled-outline-icons-maxicons.png"/> Licença
