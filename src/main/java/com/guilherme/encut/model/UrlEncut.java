@@ -1,24 +1,25 @@
 package com.guilherme.encut.model;
 
-import com.guilherme.encut.dto.UrlEncutDto;
+import com.guilherme.encut.dto.UrlDto;
 import com.guilherme.encut.utils.RandomGeneratedPathUrl;
 import jakarta.persistence.*;
-import org.hibernate.annotations.JdbcTypeCode;
-import org.hibernate.type.SqlTypes;
+import jakarta.validation.constraints.NotBlank;
 import org.jetbrains.annotations.NotNull;
 
 @Entity(name = "url_encut")
 public class UrlEncut {
     @Id
     private String urlPath;
+
     private String urlOrigin;
 
     public UrlEncut() {
+
     }
 
-    public UrlEncut(UrlEncutDto urlEncutDto) {
-        UrlPathIsEmpty(urlEncutDto.getUrlPath());
-        UrlHTTPIsExist(urlEncutDto.getUrlOrigin());
+    public UrlEncut(UrlDto urlDto) {
+        UrlPathIsEmpty(urlDto.urlPath());
+        UrlHTTPIsExist(urlDto.urlOrigin());
     }
 
     public String getUrlPath() {
@@ -29,8 +30,8 @@ public class UrlEncut {
         return urlOrigin;
     }
 
-    private void UrlPathIsEmpty(@NotNull String pathIsEmpty){
-        if(pathIsEmpty.isEmpty()){
+    private void UrlPathIsEmpty(String pathIsEmpty){
+        if(pathIsEmpty == null || pathIsEmpty.isEmpty()){
             RandomGeneratedPathUrl randomGeneratedPathUrl = new RandomGeneratedPathUrl(5);
             this.urlPath = randomGeneratedPathUrl.GeneratedString();
         } else {
@@ -45,4 +46,5 @@ public class UrlEncut {
             this.urlOrigin = urlOriginIsHttp;
         }
     }
+
 }

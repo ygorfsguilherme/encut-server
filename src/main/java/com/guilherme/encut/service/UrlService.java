@@ -1,6 +1,6 @@
 package com.guilherme.encut.service;
 
-import com.guilherme.encut.dto.UrlEncutDto;
+import com.guilherme.encut.dto.UrlDto;
 import com.guilherme.encut.model.UrlEncut;
 import com.guilherme.encut.repository.UrlEncutRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,11 +13,11 @@ public class UrlService {
     @Autowired
     UrlEncutRepository urlEncutRepository;
 
-    public UrlEncut save(UrlEncutDto urlEncutDto){
-        Optional<UrlEncut> PathUrlIsExist = this.urlEncutRepository.findByUrlPath(urlEncutDto.getUrlPath());
+    public UrlEncut save(UrlDto urlDto){
+        Optional<UrlEncut> PathUrlIsExist = this.urlEncutRepository.findByUrlPath(urlDto.urlPath());
 
-        if (PathUrlIsExist.isEmpty()){
-            UrlEncut urlEncut = new UrlEncut(urlEncutDto);
+        if (PathUrlIsExist.isEmpty() || PathUrlIsExist.get().getUrlPath() == null){
+            UrlEncut urlEncut = new UrlEncut(urlDto);
             this.urlEncutRepository.save(urlEncut);
             return urlEncut;
         }

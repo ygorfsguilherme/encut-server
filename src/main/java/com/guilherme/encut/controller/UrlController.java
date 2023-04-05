@@ -1,10 +1,12 @@
 package com.guilherme.encut.controller;
 
-import com.guilherme.encut.dto.UrlEncutDto;
-import com.guilherme.encut.dto.UrlEncutResponse;
+import com.guilherme.encut.dto.UrlDto;
+import com.guilherme.encut.dto.UrlResponseDto;
+import com.guilherme.encut.dto.UrlRedirectDto;
 import com.guilherme.encut.model.UrlEncut;
 import com.guilherme.encut.service.UrlService;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -20,10 +22,10 @@ public class UrlController {
 
     @PostMapping("/register")
     public ResponseEntity<?> RegisterUrl(
-            @RequestBody UrlEncutDto urlEncutDto
+            @RequestBody @Valid UrlDto urlDto
     ){
         try {
-            UrlEncut url = urlService.save(urlEncutDto);
+            UrlEncut url = urlService.save(urlDto);
             return ResponseEntity.ok().body(getNewUrlPath(url.getUrlPath()));
         } catch (Exception e) {
             return ResponseEntity.status(409).body(e.getMessage());
@@ -36,12 +38,13 @@ public class UrlController {
             HttpServletResponse httpServletResponse
     ) throws IOException {
         UrlEncut urlEncut = urlService.findByUrlPath(path).get();
-        httpServletResponse.sendRedirect(urlEncut.getUrlOrigin());
+        UrlRedirectDto urlRedirectDto = new UrlRedirectDto(urlEncut);
+        httpServletResponse.sendRedirect(urlRedirectDto.urlOrigin());
     }
 
-    private UrlEncutResponse getNewUrlPath(String urlPath){
+    private UrlResponseDto getNewUrlPath(String urlPath){
         String baseUrl = ServletUriComponentsBuilder.fromCurrentContextPath().build().toUriString();
-        UrlEncutResponse newUrl = new UrlEncutResponse(baseUrl, urlPath);
-        return newUrl;
+
+        return new UrlResponseDto(baseUrl, urlPath);
     }
 }
