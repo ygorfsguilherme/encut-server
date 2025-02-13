@@ -27,13 +27,6 @@ Encut é um encutador de url, para facilitar a memorização, digitação e entr
 
 Obs: esse é apenas a api do projeto o client pode ser encontrado [aqui](https://github.com/ygorfsguilherme/encut-client)
 
-
-<div align="center">
-  <img src="https://img.icons8.com/color/48/null/error--v1.png"/>
-      <h2>AVISO: voltado para aprendizado</h2>
-  <img src="https://img.icons8.com/color/48/null/error--v1.png"/>
-</div>
-
 ## <img height="35px" src="https://img.icons8.com/color/96/null/puzzle-matching.png"/> Funcionalidades
 - Gera uma url curta
 - Gera uma url personalizada
