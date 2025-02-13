@@ -3,8 +3,6 @@ package com.guilherme.encut.model;
 import com.guilherme.encut.dto.UrlDto;
 import com.guilherme.encut.utils.RandomGeneratedPathUrl;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotBlank;
-import org.jetbrains.annotations.NotNull;
 
 @Entity(name = "url_encut")
 public class UrlEncut {
